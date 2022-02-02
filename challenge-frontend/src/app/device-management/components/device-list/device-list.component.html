@@ -1,0 +1,25 @@
+<div class="po-row searchBar">
+  <po-input
+    class="po-md-3"
+    name="txtSearch"
+    p-label=""
+    p-icon="po-icon-search"
+    (p-change-model)="searchItems($event)"
+    p-placeholder="Pesquisar">
+  </po-input>
+  <span>por</span>
+  <po-combo
+    class="po-md-2"
+    name="cbbSearchBy"
+    p-label=""
+    (p-change)="cbbSearchBy_change($event)"
+    [p-options]="searchBy">
+  </po-combo>
+</div>
+<po-table
+  [p-actions]="actions"
+  [p-columns]="columns"
+  [p-hide-columns-manager]="true"
+  [p-sort]="true"
+  [p-items]="listDevices">
+</po-table>
