@@ -29,9 +29,17 @@ class DeviceDao {
         
         db.query(sql, (error, result) => {
             if (error) {
-                res.status(400).status(error);
+                res.status(400).status({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             } else {
-                res.status(200).json(result);
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
+                    items: result
+                });
             }
         });
     }
@@ -62,9 +70,17 @@ class DeviceDao {
         ];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status(error);
+                res.status(400).status({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             } else {
-                res.status(200).json({...device});
+                res.status(200).status({
+                    hasError: true,
+                    msg: error,
+                    items: [{...device}]
+                });
             }
         });
     }
@@ -91,9 +107,17 @@ class DeviceDao {
         ];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status(error);
+                res.status(400).status({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             } else {
-                res.status(200).json({...device, id});
+                res.status(200).status({
+                    hasError: true,
+                    msg: error,
+                    items: [{...device}]
+                });
             }
         });
     }
@@ -112,9 +136,17 @@ class DeviceDao {
         const parameters = [id];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status(error);
+                res.status(400).status({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             } else {
-                res.status(200).json({id});
+                res.status(200).status({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             }
         });
     }

@@ -1,1 +1,8 @@
-<p>device-crud works!</p>
+<div class="po-page-header">
+  <h1 class="po-page-header-title">{{ pageTitle }}</h1>
+</div>
+
+<form [formGroup]="deviceForm" autocomplete="off">
+  <po-input class="po-md-6" formControlName="color" name="label" p-clean p-label="Cor">
+  </po-input>
+</form>

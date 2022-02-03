@@ -18,7 +18,6 @@ export class AppComponent {
     {
       label: 'Category Management',
       action: (menu: PoMenuItem) => {
-        this.childPageTitle = menu.label;
         this.route.navigate(['categoryManagement']);
       },
       icon: 'po-icon-list',
@@ -27,15 +26,12 @@ export class AppComponent {
     {
       label: 'Device Management',
       action: (menu: PoMenuItem) => {
-        this.childPageTitle = menu.label;
         this.route.navigate(['deviceManagement']);
       },
       icon: 'po-icon-device-smartphone',
       shortLabel: 'Device',
     },
   ];
-
-  public childPageTitle = '';
 
   //#endregion
 

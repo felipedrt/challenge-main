@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { PoComboOption, PoSelectOption, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
+import { Router } from '@angular/router';
+import { PoComboOption, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
+import { SqlAccessModeEnum } from 'src/enums/sql-access-mode';
+import { DeviceManagement } from '../../models/device-management';
+import { DeviceManagementService } from '../../service/device-management.service';
 
 @Component({
   selector: 'app-device-list',
@@ -16,7 +20,7 @@ export class DeviceListComponent implements OnInit {
   public actions: Array<PoTableAction> = [];
   public searchBy: Array<PoComboOption> = [];
 
-  public listDevices = [];
+  public listDevices: DeviceManagement[] = [];
 
   //#endregion
 
@@ -30,7 +34,10 @@ export class DeviceListComponent implements OnInit {
 
   //#region Constructor
 
-  constructor() { }
+  constructor(
+    private deviceManagementService: DeviceManagementService,
+    private router: Router) {
+    }
 
   //#endregion
 
@@ -49,12 +56,19 @@ export class DeviceListComponent implements OnInit {
 
   //#region Public Methods
 
+  public btnNewDevice_onClick() {
+    this.router.navigate(['deviceManagement', 'new'], {
+      state: {
+        accessMode: SqlAccessModeEnum.Insert
+      }
+    });
+  }
+
   public cbbSearchBy_change(ev: any) {
     this.columnToSearch = ev;
   }
 
   public searchItems(ev: any) {
-    console.log(ev);
     if (this.columnToSearch && ev) {
       const auxArray = this.listDevices.filter((d) =>
         d[this.columnToSearch]
@@ -75,24 +89,9 @@ export class DeviceListComponent implements OnInit {
   //#region Private Methods
 
   private getDevices() {
-    this.listDevices = [
-      {
-        id: 1,
-        name: 'Teste 1',
-        color: 'red',
-        partNumber: 123,
-      }, {
-        id: 2,
-        name: 'Teste 2',
-        color: 'black',
-        partNumber: 456,
-      }, {
-        id: 3,
-        name: 'Teste 3',
-        color: 'purple',
-        partNumber: 789,
-      },
-    ];
+    this.deviceManagementService.getAll().subscribe((data) => {
+      this.listDevices = data.items;
+    });
   }
 
   private createTableColumns() {
@@ -121,6 +120,12 @@ export class DeviceListComponent implements OnInit {
       label: 'Editar',
       icon: 'po-icon-edit',
       action: (item) => {
+        this.router.navigate(['deviceManagement', 'edit'], {
+          state: {
+            accessMode: SqlAccessModeEnum.Update,
+            id: item.id
+          }
+        });
       },
     }, {
       label: 'Visualizar',

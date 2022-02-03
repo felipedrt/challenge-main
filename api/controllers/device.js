@@ -5,7 +5,7 @@ module.exports = app => {
         deviceDao.selectAll(res);
     })
 
-    app.post('/devices', (req, res) => {
+    app.post('/devices/insert', (req, res) => {
        const device = req.body
        deviceDao.insert(device, res)
     }) 

@@ -1,20 +1,37 @@
+<div class="po-page-header">
+  <h1 class="po-page-header-title">Device Management</h1>
+</div>
+
 <div class="po-row searchBar">
-  <po-input
-    class="po-md-3"
-    name="txtSearch"
-    p-label=""
-    p-icon="po-icon-search"
-    (p-change-model)="searchItems($event)"
-    p-placeholder="Pesquisar">
-  </po-input>
-  <span>por</span>
-  <po-combo
-    class="po-md-2"
-    name="cbbSearchBy"
-    p-label=""
-    (p-change)="cbbSearchBy_change($event)"
-    [p-options]="searchBy">
-  </po-combo>
+  <div class="po-md-6">
+      <div class="po-row searchBar">
+        <po-input
+          class="po-md-6"
+          name="txtSearch"
+          p-label=""
+          p-icon="po-icon-search"
+          (p-change-model)="searchItems($event)"
+          p-placeholder="Pesquisar">
+        </po-input>
+        <span>por</span>
+        <po-combo
+          class="po-md-3"
+          name="cbbSearchBy"
+          p-label=""
+          (p-change)="cbbSearchBy_change($event)"
+          [p-options]="searchBy">
+        </po-combo>
+      </div>
+  </div>
+  <div class="po-md-6">
+      <po-button
+        (p-click)="btnNewDevice_onClick()"
+        p-icon="po-icon-plus-circle"
+        p-label="New Device"
+        class="floatRight"
+        p-type="primary">
+      </po-button>
+  </div>
 </div>
 <po-table
   [p-actions]="actions"
