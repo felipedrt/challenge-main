@@ -1,0 +1,88 @@
+<div class="po-page-header">
+    <h1 class="po-page-header-title">Category Management</h1>
+  </div>
+  
+  <div class="po-row searchBar">
+    <div class="po-md-6">
+        <div class="po-row searchBar">
+          <po-input
+            class="po-md-6"
+            name="txtSearch"
+            p-label=""
+            p-icon="po-icon-search"
+            (p-change-model)="searchItems($event)"
+            p-placeholder="Search">
+          </po-input>
+          <span>by</span>
+          <po-combo
+            class="po-md-3"
+            name="cbbSearchBy"
+            p-label=""
+            (p-change)="cbbSearchBy_change($event)"
+            [p-options]="searchBy">
+          </po-combo>
+        </div>
+    </div>
+    <div class="po-md-6">
+        <po-button
+          (p-click)="btnNewCategory_onClick()"
+          p-icon="po-icon-plus-circle"
+          p-label="New Category"
+          class="floatRight"
+          p-type="primary">
+        </po-button>
+    </div>
+  </div>
+  <po-table
+    [p-actions]="actions"
+    [p-columns]="columns"
+    [p-hide-columns-manager]="true"
+    [p-sort]="true"
+    [p-items]="listCategories">
+  </po-table>
+  
+  <po-modal
+    #modalConfirmation
+    p-click-out="true"
+    p-title="Confirmation"
+    [p-primary-action]="primaryActionConfirmationModal"
+    [p-secondary-action]="secondaryActionConfirmationModal"
+    >
+    <div class="po-row">
+      <span>Are you sure that you want to remove the selected item?</span>
+    </div>
+    <div class="po-row">
+      <div class="po-md-2">ID</div>
+      <div class="po-md-10 text-bold">{{ selectedItem?.id }}</div>
+    </div>
+    <div class="po-row">
+      <div class="po-md-2">Category</div>
+      <div class="po-md-10 text-bold">{{ selectedItem?.name }}</div>
+    </div>
+  </po-modal>
+
+  <po-modal
+    #modalCategory
+    p-click-out="true"
+    [p-title]="modalCategoryTitle"
+    [p-primary-action]="primaryActionModalCategory"
+    [p-secondary-action]="secondaryActionModalCategory"
+    >
+    <form [formGroup]="categoryForm">
+      <div class="po-row">
+        <div class="po-md-12">
+          <po-input
+            formControlName="name"
+            name="txtName"
+            p-maxlength="128"
+            p-label="Name">
+          </po-input>
+          <app-form-message-validation
+            *ngIf="categoryForm.get('name')?.errors?.required
+                  && categoryForm.get('name')?.touched"
+            message="Name field is obrigatory.">
+          </app-form-message-validation>
+        </div>
+      </div>
+    </form>
+  </po-modal>

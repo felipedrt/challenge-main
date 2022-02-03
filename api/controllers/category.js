@@ -10,7 +10,7 @@ module.exports = app => {
         categoryDao.selectById(id, res);
     })
 
-    app.post('/categories', (req, res) => {
+    app.post('/categories/insert', (req, res) => {
        const category = req.body
        categoryDao.insert(category, res)
     }) 

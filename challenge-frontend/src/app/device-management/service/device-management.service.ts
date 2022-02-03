@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/app/environments/environment';
 import { ChallengeHttpResponse } from 'src/models/challenge-http-response';
-import { CategoryManagement } from '../models/category-management';
+import { CategoryManagement } from '../../category-management/models/category-management';
 import { DeviceManagement } from '../models/device-management';
 
 const API = environment.apiURL;
@@ -47,7 +47,7 @@ export class DeviceManagementService {
 
     //#region Update
 
-    public Update(id: number, device: DeviceManagement): Observable<ChallengeHttpResponse<DeviceManagement>> {
+    public update(id: number, device: DeviceManagement): Observable<ChallengeHttpResponse<DeviceManagement>> {
         return this.http.patch<ChallengeHttpResponse<DeviceManagement>>(`${API}/devices/${id}`, device);
     }
 

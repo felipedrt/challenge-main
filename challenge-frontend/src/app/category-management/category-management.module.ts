@@ -1,20 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DeviceListComponent } from './components/device-list/device-list.component';
-import { DeviceCrudComponent } from './components/device-crud/device-crud.component';
-import { DeviceManagementRoutingModule } from './device-management-routing.module';
+import { CategoryManagementRoutingModule } from './category-management-routing.module';
 import { PoButtonModule, PoFieldModule, PoModalModule, PoNotificationModule, PoPageModule, PoTableModule } from '@po-ui/ng-components';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CategoryListComponent } from './components/category-list/category-list.component';
 import { FormMessageValidationModule } from '../form-message-validation/form-message-validation.module';
 
 @NgModule({
   declarations: [
-    DeviceListComponent,
-    DeviceCrudComponent,
+    CategoryListComponent,
   ],
   imports: [
     CommonModule,
-    DeviceManagementRoutingModule,
+    CategoryManagementRoutingModule,
     PoTableModule,
     PoFieldModule,
     PoButtonModule,
@@ -23,6 +21,6 @@ import { FormMessageValidationModule } from '../form-message-validation/form-mes
     PoNotificationModule,
     PoModalModule,
     FormMessageValidationModule
-  ],
+  ]
 })
-export class DeviceManagementModule { }
+export class CategoryManagementModule { }

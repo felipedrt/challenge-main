@@ -7,6 +7,10 @@ const routes: Routes = [
     path: 'deviceManagement',
     loadChildren: () =>
       import('./device-management/device-management.module').then((m) => m.DeviceManagementModule),
+  }, {
+    path: 'categoryManagement',
+    loadChildren: () =>
+      import('./category-management/category-management.module').then((m) => m.CategoryManagementModule),
   }
 ];
 

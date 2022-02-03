@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { SqlAccessModeEnum } from 'src/enums/sql-access-mode';
 import { DeviceManagementService } from '../../service/device-management.service';
 import { PoComboOption, PoNotificationService } from '@po-ui/ng-components';
-import { CategoryManagement } from '../../models/category-management';
+import { CategoryManagement } from '../../../category-management/models/category-management';
 import { DeviceManagement } from '../../models/device-management';
 
 @Component({
@@ -19,8 +19,7 @@ export class DeviceCrudComponent implements OnInit {
   //#region Public Attributes
 
   public pageTitle = 'Device Management';
-  private sqlAccessModeEnum: SqlAccessModeEnum;
-
+  
   public deviceForm: FormGroup;
   public listCategories: PoComboOption[];
 
@@ -34,6 +33,7 @@ export class DeviceCrudComponent implements OnInit {
   //#region Private Attributes
 
   private id = 0;
+  private sqlAccessModeEnum: SqlAccessModeEnum;
 
   //#endregion
 
@@ -117,7 +117,7 @@ export class DeviceCrudComponent implements OnInit {
           }
         })
       } else if (this.sqlAccessModeEnum == SqlAccessModeEnum.Update) {
-        this.deviceManagementService.Update(this.id, device).subscribe((result) => {
+        this.deviceManagementService.update(this.id, device).subscribe((result) => {
           if (result.hasError) {
             this.poNotificationService.error(`Error to update device | error: ${result.msgError}`);
           } else {

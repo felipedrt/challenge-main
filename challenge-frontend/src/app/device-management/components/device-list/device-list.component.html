@@ -44,6 +44,7 @@
 <po-modal
   #modal
   p-title="Confirmation"
+  p-click-out="true"
   [p-primary-action]="primaryAction"
   [p-secondary-action]="secondaryAction"
   >
@@ -52,18 +53,18 @@
   </div>
   <div class="po-row">
     <div class="po-md-2">ID</div>
-    <div class="po-md-2 text-bold">{{ selectedItem?.id }}</div>
+    <div class="po-md-10 text-bold">{{ selectedItem?.id }}</div>
   </div>
   <div class="po-row">
     <div class="po-md-2">Category</div>
-    <div class="po-md-2 text-bold">{{ selectedItem?.name == '' ? '-' : selectedItem?.name }}</div>
+    <div class="po-md-10 text-bold">{{ selectedItem?.name == '' ? '-' : selectedItem?.name }}</div>
   </div>
   <div class="po-row">
     <div class="po-md-2">Color</div>
-    <div class="po-md-2 text-bold">{{ selectedItem?.color }}</div>
+    <div class="po-md-10 text-bold">{{ selectedItem?.color }}</div>
   </div>
   <div class="po-row">
     <div class="po-md-2">Part Number</div>
-    <div class="po-md-2 text-bold">{{ selectedItem?.partNumber }}</div>
+    <div class="po-md-10 text-bold">{{ selectedItem?.partNumber }}</div>
   </div>
 </po-modal>
