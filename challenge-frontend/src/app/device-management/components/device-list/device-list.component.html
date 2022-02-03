@@ -11,9 +11,9 @@
           p-label=""
           p-icon="po-icon-search"
           (p-change-model)="searchItems($event)"
-          p-placeholder="Pesquisar">
+          p-placeholder="Search">
         </po-input>
-        <span>por</span>
+        <span>by</span>
         <po-combo
           class="po-md-3"
           name="cbbSearchBy"
@@ -40,3 +40,30 @@
   [p-sort]="true"
   [p-items]="listDevices">
 </po-table>
+
+<po-modal
+  #modal
+  p-title="Confirmation"
+  [p-primary-action]="primaryAction"
+  [p-secondary-action]="secondaryAction"
+  >
+  <div class="po-row">
+    <span>Are you sure that you want to remove the selected item?</span>
+  </div>
+  <div class="po-row">
+    <div class="po-md-2">ID</div>
+    <div class="po-md-2 text-bold">{{ selectedItem?.id }}</div>
+  </div>
+  <div class="po-row">
+    <div class="po-md-2">Category</div>
+    <div class="po-md-2 text-bold">{{ selectedItem?.name == '' ? '-' : selectedItem?.name }}</div>
+  </div>
+  <div class="po-row">
+    <div class="po-md-2">Color</div>
+    <div class="po-md-2 text-bold">{{ selectedItem?.color }}</div>
+  </div>
+  <div class="po-row">
+    <div class="po-md-2">Part Number</div>
+    <div class="po-md-2 text-bold">{{ selectedItem?.partNumber }}</div>
+  </div>
+</po-modal>

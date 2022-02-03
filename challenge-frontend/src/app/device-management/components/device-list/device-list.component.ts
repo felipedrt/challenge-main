@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { PoComboOption, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
+import { PoComboOption, PoModalAction, PoModalComponent, PoNotificationService, PoTableAction, PoTableColumn } from '@po-ui/ng-components';
 import { SqlAccessModeEnum } from 'src/enums/sql-access-mode';
 import { DeviceManagement } from '../../models/device-management';
 import { DeviceManagementService } from '../../service/device-management.service';
@@ -16,11 +16,37 @@ export class DeviceListComponent implements OnInit {
 
   //#region Public Attributes
 
+  @ViewChild('modal') modal: PoModalComponent;
   public columns: Array<PoTableColumn> = [];
   public actions: Array<PoTableAction> = [];
   public searchBy: Array<PoComboOption> = [];
 
+  public selectedItem;
   public listDevices: DeviceManagement[] = [];
+
+  public primaryAction: PoModalAction = {
+    action: () => {
+      this.deviceManagementService.delete(this.selectedItem.id).subscribe((result) => {
+        if (result.hasError) {
+          this.poNotificationService.error(`Error to delete device | error: ${result.msgError}`);
+        } else {
+          this.poNotificationService.success('Device deleted with success!');
+          setTimeout(() => {
+            this.getDevices();
+          }, 500);
+        }
+        this.modal.close();
+      });
+    },
+    label: 'Yes'
+  };
+
+  secondaryAction: PoModalAction = {
+    action: () => {
+      this.modal.close();
+    },
+    label: 'No'
+  };
 
   //#endregion
 
@@ -36,7 +62,8 @@ export class DeviceListComponent implements OnInit {
 
   constructor(
     private deviceManagementService: DeviceManagementService,
-    private router: Router) {
+    private router: Router,
+    private poNotificationService: PoNotificationService) {
     }
 
   //#endregion
@@ -90,7 +117,7 @@ export class DeviceListComponent implements OnInit {
 
   private getDevices() {
     this.deviceManagementService.getAll().subscribe((data) => {
-      this.listDevices = data.items;
+      this.listDevices = data.items as DeviceManagement[];
     });
   }
 
@@ -102,22 +129,22 @@ export class DeviceListComponent implements OnInit {
       },
       {
         property: 'name',
-        label: 'Categoria',
+        label: 'Category',
       },
       {
         property: 'color',
-        label: 'Cor',
+        label: 'Color',
       },
       {
         property: 'partNumber',
-        label: 'Número de Série',
+        label: 'Part Number',
       },
     ];
   }
 
   private createActions() {
     this.actions = [{
-      label: 'Editar',
+      label: 'Edit',
       icon: 'po-icon-edit',
       action: (item) => {
         this.router.navigate(['deviceManagement', 'edit'], {
@@ -128,14 +155,22 @@ export class DeviceListComponent implements OnInit {
         });
       },
     }, {
-      label: 'Visualizar',
+      label: 'Visualize',
       icon: 'po-icon-eye',
       action: (item) => {
+        this.router.navigate(['deviceManagement', 'view'], {
+          state: {
+            accessMode: SqlAccessModeEnum.Select,
+            id: item.id
+          }
+        });
       },
     }, {
-      label: 'Remover',
+      label: 'Remove',
       icon: 'po-icon-delete',
       action: (item) => {
+        this.selectedItem = item;
+        this.modal.open();
       },
     }
   ];

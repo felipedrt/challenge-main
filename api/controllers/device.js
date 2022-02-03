@@ -5,6 +5,11 @@ module.exports = app => {
         deviceDao.selectAll(res);
     })
 
+    app.get('/devices/:id', (req, res) => {
+        const id = parseInt(req.params.id);
+        deviceDao.selectById(id, res);
+    })
+
     app.post('/devices/insert', (req, res) => {
        const device = req.body
        deviceDao.insert(device, res)

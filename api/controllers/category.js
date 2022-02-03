@@ -5,6 +5,11 @@ module.exports = app => {
         categoryDao.selectAll(res);
     })
 
+    app.get('/categories/:id', (req, res) => {
+        const id = parseInt(req.params.id);
+        categoryDao.selectById(id, res);
+    })
+
     app.post('/categories', (req, res) => {
        const category = req.body
        categoryDao.insert(category, res)

@@ -24,9 +24,44 @@ class CategoryDao {
         
         db.query(sql, (error, result) => {
             if (error) {
-                res.status(400).status(error);
+                res.status(400).json({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             } else {
-                res.status(200).json(result);
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
+                    items: result
+                });
+            }
+        });
+    }
+
+    selectById(id, res) {
+        const sql = `
+        select
+            id
+            ,name
+        from
+            ${TABLE_NAME.tbCategory}
+        where
+            id = ?`;
+        
+        db.query(sql, id, (error, result) => {
+            if (error) {
+                res.status(400).json({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
+            } else {
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
+                    items: result[0]
+                });
             }
         });
     }
@@ -49,9 +84,17 @@ class CategoryDao {
         const parameters = [category.name];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status(error);
+                res.status(400).json({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             } else {
-                res.status(200).json({...category});
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
+                    items: [{...category}]
+                });
             }
         });
     }
@@ -71,9 +114,17 @@ class CategoryDao {
         const parameters = [category.name, id];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status(error);
+                res.status(400).json({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             } else {
-                res.status(200).json({...category, id});
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
+                    items: [{...category}]
+                });
             }
         });
     }
@@ -92,9 +143,17 @@ class CategoryDao {
         const parameters = [id];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status(error);
+                res.status(400).json({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
             } else {
-                res.status(200).json({id});
+                res.status(200).json({
+                    hasError: false,
+                    msg: error,
+                    items: []
+                });
             }
         });
     }

@@ -29,7 +29,7 @@ class DeviceDao {
         
         db.query(sql, (error, result) => {
             if (error) {
-                res.status(400).status({
+                res.status(400).json({
                     hasError: true,
                     msg: error,
                     items: []
@@ -39,6 +39,35 @@ class DeviceDao {
                     hasError: false,
                     msg: '',
                     items: result
+                });
+            }
+        });
+    }
+
+    selectById(id, res) {
+        const sql = `
+        select
+            id
+            ,categoryId
+            ,color
+            ,partNumber
+        from
+            ${TABLE_NAME.tbDevice}
+        where
+            id = ?`;
+        
+        db.query(sql, id, (error, result) => {
+            if (error) {
+                res.status(400).json({
+                    hasError: true,
+                    msg: error,
+                    items: []
+                });
+            } else {
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
+                    items: result[0]
                 });
             }
         });
@@ -70,16 +99,16 @@ class DeviceDao {
         ];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status({
+                res.status(400).json({
                     hasError: true,
                     msg: error,
                     items: []
                 });
             } else {
-                res.status(200).status({
-                    hasError: true,
-                    msg: error,
-                    items: [{...device}]
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
+                    items: {...device}
                 });
             }
         });
@@ -107,15 +136,15 @@ class DeviceDao {
         ];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status({
+                res.status(400).json({
                     hasError: true,
                     msg: error,
                     items: []
                 });
             } else {
-                res.status(200).status({
-                    hasError: true,
-                    msg: error,
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
                     items: [{...device}]
                 });
             }
@@ -136,15 +165,15 @@ class DeviceDao {
         const parameters = [id];
         db.query(sql, parameters, (error) => {
             if (error) {
-                res.status(400).status({
+                res.status(400).json({
                     hasError: true,
                     msg: error,
                     items: []
                 });
             } else {
-                res.status(200).status({
-                    hasError: true,
-                    msg: error,
+                res.status(200).json({
+                    hasError: false,
+                    msg: '',
                     items: []
                 });
             }

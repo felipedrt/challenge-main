@@ -1,5 +1,5 @@
 export interface DeviceManagement {
-    id: number;
+    id?: number;
     categoryId: number;
     color: string;
     partNumber: number;

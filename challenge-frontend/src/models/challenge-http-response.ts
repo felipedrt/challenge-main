@@ -1,5 +1,5 @@
 export interface ChallengeHttpResponse<t> {
     hasError: boolean;
-    msgError: '';
-    items?: Array<t>;
+    msgError: string;
+    items?: Array<t> | t;
 }

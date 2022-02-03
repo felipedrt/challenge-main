@@ -1,8 +1,74 @@
 <div class="po-page-header">
+  <div class="po-row align-items-center">
+    <po-button
+      (p-click)="btnBack_onClick()"
+      p-label=""
+      p-icon="po-icon po-icon-arrow-left"
+      p-type="link">
+  </po-button>
+  
   <h1 class="po-page-header-title">{{ pageTitle }}</h1>
 </div>
+</div>
 
-<form [formGroup]="deviceForm" autocomplete="off">
-  <po-input class="po-md-6" formControlName="color" name="label" p-clean p-label="Cor">
-  </po-input>
+<form [formGroup]="deviceForm">
+  <div class="po-row justify-content-center">
+    <div class="po-md-2">
+      <po-combo
+        formControlName="categoryId"
+        name="cbbCategory"
+        p-label="Category"
+        [p-disabled]="disableCategoryId"
+        [p-options]="listCategories">
+      </po-combo>
+      <app-form-message-validation
+       *ngIf="deviceForm.get('categoryId')?.errors?.required
+              && deviceForm.get('categoryId')?.touched"
+        message="Category field is obrigatory.">
+      </app-form-message-validation>
+    </div>
+    <div class="po-md-2">
+      <po-input
+        formControlName="color"
+        name="txtColor"
+        p-maxlength="16"
+        [p-disabled]="disableColor"
+        p-label="Color">
+      </po-input>
+      <app-form-message-validation
+       *ngIf="deviceForm.get('color')?.errors?.required
+              && deviceForm.get('color')?.touched"
+        message="Color field is obrigatory.">
+      </app-form-message-validation>
+    </div>
+  </div>
+  <div class="po-row justify-content-center align-items-center">
+    <div class="po-md-2">
+      <po-number
+        formControlName="partNumber"
+        name="txtPartNumber"
+        [p-disabled]="disablePartNumber"
+        p-label="Part Number">
+      </po-number>
+      <app-form-message-validation
+       *ngIf="deviceForm.get('partNumber')?.errors?.required
+              && deviceForm.get('partNumber')?.touched"
+        message="Part Number field is obrigatory.">
+      </app-form-message-validation>
+      <app-form-message-validation
+       *ngIf="deviceForm.get('partNumber')?.errors?.negative
+              && deviceForm.get('partNumber')?.touched"
+        message="Part Number must be a positive value.">
+      </app-form-message-validation>
+    </div>
+    <div class="po-md-2">
+      <po-button
+        *ngIf="showSaveButton"
+        (p-click)="btnSave_onClick()"
+        class="btn-save"
+        p-label="Save Device"
+        p-type="primary">
+      </po-button>
+  </div>
+  </div>
 </form>
