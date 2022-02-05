@@ -2,8 +2,8 @@
 
 ## Backend
 
-- Access the folder API and execute `npm install` command.
-- At the same API folder execute `node index.js` to start server locally.
+- Access the folder **api** and execute `npm install` command.
+- At the same **api**** folder execute `node index.js` to start server locally.
 - The database should be created automatically when the server started, if the database will not be created, open **challenge.sql** copy all the text and paste it in your local database.
 
 At the first time when I started the backend the following error has been displayed:
@@ -15,3 +15,7 @@ If this error appear again, execute those commands in your local database:
 `flush privileges;`
 
 ## Frontend
+
+- Access the folder **challenge-frontend** and execute `npm install` command.
+- At the same **challenge-frontend** folder execute `ng serve` to start the application.
+- Access `localhost:4200` in your browser.
